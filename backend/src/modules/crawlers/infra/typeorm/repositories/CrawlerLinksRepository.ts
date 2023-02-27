@@ -1,6 +1,7 @@
 import { IAllocateCrawlerLinksDTO } from '@modules/crawlers/dtos/IAllocateCrawlerLinksDTO';
 import { ICreateCrawlerLinkDTO } from '@modules/crawlers/dtos/ICreateCrawlerLinkDTO';
 import { IListCrawlerLinksDTO } from '@modules/crawlers/dtos/IListCrawlerLinksDTO';
+import { ISearchLinkDTO } from '@modules/crawlers/dtos/ISearchLinkDTO';
 import { ICrawlerLinksRepository } from '@modules/crawlers/repositories/ICrawlerLinksRepository';
 import { In, LessThan, Repository } from 'typeorm';
 
@@ -101,6 +102,32 @@ class CrawlerLinksRepository implements ICrawlerLinksRepository {
 
   public async delete(crawlerLink: CrawlerLink): Promise<void> {
     await this.ormRepository.remove(crawlerLink);
+  }
+
+  public async search(
+    params: ISearchLinkDTO,
+  ): Promise<[CrawlerLink[], number]> {
+    const { page = 1, per_page = 10, query } = params;
+
+    const take = per_page;
+    const skip = page ? (page - 1) * per_page : 0;
+    const search = query.join(' & ');
+
+    const qb = this.ormRepository.createQueryBuilder('links');
+    const result = await qb
+      .select(['links.id', 'links.url', 'links.title', 'links.description'])
+      .where(`search_index_col @@ to_tsquery('portuguese', :search)`, {
+        search,
+      })
+      .orderBy(
+        `ts_rank(search_index_col, to_tsquery('portuguese', :search))`,
+        'DESC',
+      )
+      .setParameter('search', search)
+      .take(take)
+      .skip(skip)
+      .getManyAndCount();
+    return result;
   }
 }
 

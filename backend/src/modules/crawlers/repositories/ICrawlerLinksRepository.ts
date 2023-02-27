@@ -1,6 +1,7 @@
 import { IAllocateCrawlerLinksDTO } from '../dtos/IAllocateCrawlerLinksDTO';
 import { ICreateCrawlerLinkDTO } from '../dtos/ICreateCrawlerLinkDTO';
 import { IListCrawlerLinksDTO } from '../dtos/IListCrawlerLinksDTO';
+import { ISearchLinkDTO } from '../dtos/ISearchLinkDTO';
 import { ICrawlerLink } from '../models/ICrawlerLink';
 
 interface ICrawlerLinksRepository {
@@ -15,6 +16,7 @@ interface ICrawlerLinksRepository {
   save(dataUpdate: ICrawlerLink | ICrawlerLink[]): Promise<void>;
   delete(user: ICrawlerLink): Promise<void>;
   incrementReference(linkId: string): Promise<void>;
+  search(params: ISearchLinkDTO): Promise<[ICrawlerLink[], number]>;
 }
 
 export { ICrawlerLinksRepository };

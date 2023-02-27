@@ -31,6 +31,14 @@ export const deleteCrawlerLinkValidate = celebrate({
   },
 });
 
+export const searchCrawlerLinkValidate = celebrate({
+  [Segments.QUERY]: {
+    search: Joi.string().required(),
+    number: Joi.number().integer().positive(),
+    per_page: Joi.number().integer().positive(),
+  },
+});
+
 export const releaseCrawlerLinkValidate = celebrate({
   [Segments.PARAMS]: {
     id: Joi.string().uuid().required(),

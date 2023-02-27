@@ -33,6 +33,12 @@ crawlerLinksRoutes.get(
   crawlerLinksController.allocate,
 );
 
+crawlerLinksRoutes.get(
+  '/search',
+  // ensureRoles([UserRole.SUPER_ADMIN, UserRole.ADMIN, UserRole.CRAWLER]),
+  crawlerLinksController.search,
+);
+
 crawlerLinksRoutes.patch(
   '/release/:id',
   ensureRoles([UserRole.SUPER_ADMIN, UserRole.ADMIN, UserRole.CRAWLER]),

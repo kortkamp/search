@@ -4,6 +4,7 @@ import { CreateCrawlerLinkService } from '@modules/crawlers/services/CreateCrawl
 import { DeleteCrawlerLinkService } from '@modules/crawlers/services/DeleteCrawlerLinkService';
 import { ListCrawlerLinksService } from '@modules/crawlers/services/ListCrawlerLinksService';
 import { ReleaseCrawlerLinkService } from '@modules/crawlers/services/ReleaseCrawlerLinkService';
+import { SearchLinksService } from '@modules/crawlers/services/SearchLinksService';
 import { UpdateCrawlerLinkService } from '@modules/crawlers/services/UpdateCrawlerLinkService';
 import { instanceToInstance } from 'class-transformer';
 import { Request, Response } from 'express';
@@ -22,7 +23,22 @@ class CrawlerLinksController {
       crawlerLinks: instanceToInstance(crawlerLinks),
     });
   }
+  public async search(request: Request, response: Response): Promise<Response> {
+    const searchLinksService = container.resolve(SearchLinksService);
 
+    const { search, page, per_page } = request.query;
+
+    const crawlerLinks = await searchLinksService.execute({
+      search: search as string,
+      page,
+      per_page,
+    });
+
+    return response.json({
+      success: true,
+      crawlerLinks: instanceToInstance(crawlerLinks),
+    });
+  }
   public async allocate(
     request: Request,
     response: Response,
