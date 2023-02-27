@@ -1,0 +1,31 @@
+version: "3.9"
+
+services:
+  database:
+    image: postgres
+    container_name: database_search
+    restart: always
+    ports:
+      - 5432:5432
+    environment:
+      - POSTGRES_DB=apae
+      - POSTGRES_USER=root
+      - POSTGRES_PASSWORD=passw
+    volumes:
+      - pgdata:/data/postgres
+  app:
+    build: .
+    container_name: search_api
+    restart: always
+    ports:
+      - 3003:3003
+      - 9229:9229
+    volumes:
+      - .:/usr/app
+    links:
+      - database_search
+    depends_on:
+      - database_search
+volumes:
+  pgdata:
+    driver: local

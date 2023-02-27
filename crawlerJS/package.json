@@ -1,0 +1,46 @@
+{
+  "name": "crawlerJS",
+  "version": "1.0.0",
+  "main": "index.js",
+  "scripts": {
+    "start": "node dist/src/index.js",
+    "dev": "ts-node-dev -r tsconfig-paths/register --inspect --transpile-only --ignore-watch node_modules ./src/index.ts",
+    "build": "yarn babel src --extensions \".js,.ts\" --out-dir dist/src --copy-files --no-copy-ignored",
+    "test": "jest",
+    "cp-module": "./src/bin/cp-module"
+  },
+  "heroku-run-build-script": true,
+  "repository": "https://github.com/kortkamp/template-node-api.git",
+  "author": "kortkamp <marcelusmedius@gmail.com>",
+  "license": "MIT",
+  "dependencies": {
+    "axios": "^1.3.4",
+    "dotenv": "^16.0.3",
+    "node-html-parser": "^6.1.5",
+    "winston": "^3.7.2"
+  },
+  "devDependencies": {
+    "@babel/cli": "^7.17.6",
+    "@babel/core": "^7.17.7",
+    "@babel/node": "^7.16.8",
+    "@babel/plugin-proposal-class-properties": "^7.16.7",
+    "@babel/plugin-proposal-decorators": "^7.17.2",
+    "@babel/preset-env": "^7.16.11",
+    "@babel/preset-typescript": "^7.16.7",
+    "@types/node": "^18.14.1",
+    "@typescript-eslint/eslint-plugin": "^5.15.0",
+    "@typescript-eslint/parser": "^5.15.0",
+    "babel-plugin-module-resolver": "^5.0.0",
+    "babel-plugin-transform-typescript-metadata": "^0.3.2",
+    "eslint": "^8.11.0",
+    "eslint-config-airbnb-base": "^15.0.0",
+    "eslint-config-prettier": "^8.5.0",
+    "eslint-import-resolver-typescript": "^2.5.0",
+    "eslint-plugin-import": "^2.25.4",
+    "eslint-plugin-import-helpers": "^1.2.1",
+    "eslint-plugin-prettier": "^4.0.0",
+    "prettier": "^2.5.1",
+    "ts-node-dev": "^2.0.0",
+    "typescript": "^4.6.2"
+  }
+}
