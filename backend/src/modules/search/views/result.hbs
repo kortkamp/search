@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <title>Resultados da Busca</title>
+    <link rel="stylesheet" href="/public/styles.css">
+    <link rel="icon" type="image/x-icon" href="/public/favicon.ico">
+    <style>
+      header {
+        padding-bottom: 30px;
+        padding-top: 30px;
+        border-bottom: 1px solid #31313130;
+      }
+      .searchForm {
+        display: flex;
+        align-items: center;
+        justify-content: start;
+        max-width: 800px;
+        gap: 10px;
+        margin: 0 auto;
+        white-space: nowrap;
+      }
+      .searchForm > h1 {
+        font-size: 30px;
+      }
+      .searchContainer {
+        display: flex;
+        gap: 10px
+      }
+      .main {
+        padding-top: 20px;
+        margin: 0 auto;
+        max-width: 800px;
+      }
+      footer {
+        margin-bottom: 50px;
+        margin-top: 50px;
+        display: flex;
+        gap: 16px;
+      }
+      footer a {
+        text-decoration: none;
+        font-size: 16px;
+        color: #00416B;
+      }
+      footer a:hover {
+        border-bottom: 2px solid;
+      }
+      footer a.current_page {
+        border-bottom: 2px solid;
+        pointer-events: none;
+        color: #313131;
+      }
+      .link {
+        text-decoration: none;
+        font-weight: normal;
+      }
+      .title {
+        color:#1A0DAB;
+        font-size: 20px;
+        text-decoration: none;
+        font-weight: normal;
+      }
+      .title:hover {
+        text-decoration: underline;
+      }
+      .url {
+        font-size: 13px;
+        color: #313131;
+        text-decoration: none !important;
+      }
+      ul {
+        list-style-type: none;
+      }
+      li {
+        padding-bottom: 30px;
+      }
+  </style>
+</head>
+<body>
+    <header>
+        <form action="/busca" method="get" class="searchForm">
+           <h1> 
+              <span style='color: #00416B'>Busca</span>
+              <span style='color: #FFC20E'>Web</span>
+            </h1>
+          <div class="searchContainer">
+            <div class="searchBox">
+              <input type="text" name="q" placeholder="Informe o que deseja buscar" required value='{{search}}'></input>
+            </div>
+            <button class="searchButton" type="submit">Buscar</button>
+          </div>
+        </form>
+    </header>
+    <div class="main" >
+        <article>
+            <ul>
+                {{#each links}}
+                    <li>
+                        <div>
+                            <a class="link" href={{this.url}}>
+                              <span class="url">{{this.url}}</span>
+                              <h3 class="title" >{{this.title}}</h3>
+                            </a>
+
+                            <p>{{this.description}}</p>
+                        </div>
+                    </li>
+
+                {{else}}
+                  <h3>Nenhum resultado encontrado</h3>
+                {{/each}}
+            </ul>
+        </article>
+        <footer>
+          {{#if links }}
+            Páginas:
+            {{#each total_pages}}
+                <a href="/busca?q={{../search}}&page={{this.page}}" class="{{#if this.is_current}}current_page{{/if}}" disabled="true">{{this.page}}</a>
+            {{/each}}
+            {{/if}}
+        </footer>
+    </div>
+</body>
+</html>

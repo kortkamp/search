@@ -1,6 +1,5 @@
+import { ICrawlerLinksRepository } from '@modules/crawlers/repositories/ICrawlerLinksRepository';
 import { inject, injectable } from 'tsyringe';
-
-import { ICrawlerLinksRepository } from '../repositories/ICrawlerLinksRepository';
 
 interface IRequest {
   page: number;

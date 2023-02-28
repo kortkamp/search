@@ -1,0 +1,40 @@
+<!doctype html>
+<html lang="pt-br">
+<head>
+  <meta charset="utf-8">
+  <title>Busca</title>
+  <meta name="description" content="Mecanismo de busca de sites internos">
+  <meta name="author" content="Marcelo Teixeira">
+  <link rel="stylesheet" href="/public/styles.css">
+  <link rel="icon" type="image/x-icon" href="/public/favicon.ico">
+  <style>
+    .container {
+        margin-top: 120px;
+        text-align: center;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        gap: 32px;
+    }
+    .container  h1 {
+      filter: drop-shadow(0px 0px 1px #444444a0);
+    }
+  </style>
+</head>
+<body>
+  <main class="container">
+        <form action="/busca" method="get" class="container">
+          <div class="title">
+            <h1> 
+              <span style='color: #00416B'>Busca</span>
+              <span style='color: #FFC20E'>Web</span>
+            </h1>
+          </div>
+          <div class="searchBox">
+            <input type="text" name="q" placeholder="Informe o que deseja buscar" required></input>
+          </div>
+          <button class="searchButton" type="submit">Pesquisar</button>
+        </form>
+  </main>
+</body>
+</html>

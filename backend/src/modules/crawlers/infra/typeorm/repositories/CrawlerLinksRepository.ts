@@ -116,9 +116,9 @@ class CrawlerLinksRepository implements ICrawlerLinksRepository {
     const qb = this.ormRepository.createQueryBuilder('links');
     const result = await qb
       .select(['links.id', 'links.url', 'links.title', 'links.description'])
-      .where(`search_index_col @@ to_tsquery('portuguese', :search)`, {
-        search,
-      })
+      // .where(`search_index_col @@ to_tsquery('portuguese', :search)`, {
+      //   search,
+      // })
       .orderBy(
         `ts_rank(search_index_col, to_tsquery('portuguese', :search))`,
         'DESC',
