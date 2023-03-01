@@ -119,6 +119,12 @@ class CrawlerLinksRepository implements ICrawlerLinksRepository {
       // .where(`search_index_col @@ to_tsquery('portuguese', :search)`, {
       //   search,
       // })
+      .where(
+        `ts_rank(search_index_col, to_tsquery('portuguese', :search)) > 0.05`,
+        {
+          search,
+        },
+      )
       .orderBy(
         `ts_rank(search_index_col, to_tsquery('portuguese', :search))`,
         'DESC',
