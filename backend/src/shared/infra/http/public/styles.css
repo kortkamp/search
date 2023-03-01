@@ -31,7 +31,6 @@ h4 {
 
 .searchBox {
   border:1px solid #31313160;
-  width: 500px;
   border-radius: 1000px;
   padding: 0 10px;
   margin: 0 auto;
@@ -45,7 +44,7 @@ h4 {
 }
 .searchBox > input {
   border:none;
-  width: 100%;
+  width: 500px;
   padding: 10px;
   font-size: 14px;
   outline: none;
