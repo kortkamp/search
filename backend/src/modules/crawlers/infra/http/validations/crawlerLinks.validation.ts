@@ -43,13 +43,6 @@ export const releaseCrawlerLinkValidate = celebrate({
   [Segments.PARAMS]: {
     id: Joi.string().uuid().required(),
   },
-  [Segments.BODY]: {
-    title: Joi.string().empty('').default(null),
-    description: Joi.string().empty('').default(null),
-    h1: Joi.string().empty('').default(null),
-    h2: Joi.string().empty('').default(null),
-    content: Joi.string().empty('').default(null),
-  },
 });
 
 export const listCrawlerLinksValidate = celebrate({

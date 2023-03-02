@@ -1,9 +1,7 @@
-import uploadConfig from '@config/upload';
 import { authMiddleware } from '@modules/sessions/infra/http/middlewares/authMiddleware';
 import { ensureRoles } from '@modules/users/infra/http/middlewares/ensureRoles';
 import { UserRole } from '@modules/users/models/IUser';
 import { Router } from 'express';
-import multer from 'multer';
 
 import { CrawlerLinksController } from '../controllers/CrawlerLinksController';
 import {

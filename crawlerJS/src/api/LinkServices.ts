@@ -11,26 +11,15 @@ interface IGetLinkResponse {
 }
 
 const getLink = async () => {
+  // return [{ url: 'https://www.aperibe.rj.gov.br', id: 'asd' }];
   const response = await api.get('/crawler-links/allocate');
   const { links } = response.data as IGetLinkResponse;
   logger.debug(`got new links: ${links[0]?.url}`);
   return links;
 };
 
-interface IReleaseLinkParams {
-  title: string;
-
-  description: string;
-
-  h1: string;
-
-  h2: string;
-
-  content: string;
-}
-
-const releaseLink = async (id: string, params?: IReleaseLinkParams) => {
-  await api.patch(`/crawler-links/release/${id}`, { ...params });
+const releaseLink = async (id: string) => {
+  await api.patch(`/crawler-links/release/${id}`);
   logger.debug(`link released ${id}`);
 };
 

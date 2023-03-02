@@ -1,17 +1,17 @@
-import { SearchLinksService } from '@modules/search/services/SearchLinksService';
+import { SearchPagesService } from '@modules/pages/services/SearchPagesService';
 import { Request, Response } from 'express';
 import path from 'path';
 import { container } from 'tsyringe';
 
 class SearchController {
   public async search(request: Request, response: Response): Promise<void> {
-    const searchLinksService = container.resolve(SearchLinksService);
+    const searchPagesService = container.resolve(SearchPagesService);
 
     const { q, page } = request.query;
 
     const search = (q as string).trim().replace(/\s\s+/g, ' ');
 
-    const crawlerLinks = await searchLinksService.execute({
+    const crawlerLinks = await searchPagesService.execute({
       search,
       page: Number(page || 1),
       per_page: 10,

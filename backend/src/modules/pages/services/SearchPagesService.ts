@@ -1,4 +1,4 @@
-import { ICrawlerLinksRepository } from '@modules/crawlers/repositories/ICrawlerLinksRepository';
+import { IPagesRepository } from '@modules/pages/repositories/IPagesRepository';
 import { inject, injectable } from 'tsyringe';
 
 interface IRequest {
@@ -8,13 +8,13 @@ interface IRequest {
 }
 
 @injectable()
-class SearchLinksService {
+class SearchPagesService {
   constructor(
-    @inject('CrawlerLinksRepository')
-    private crawlerLinksRepository: ICrawlerLinksRepository,
+    @inject('PagesRepository')
+    private pagesRepository: IPagesRepository,
   ) {}
   public async execute({ page = 1, per_page = 10, search }: IRequest) {
-    const [crawlerLinks, total] = await this.crawlerLinksRepository.search({
+    const [crawlerLinks, total] = await this.pagesRepository.search({
       page,
       per_page,
       query: search.split(' '),
@@ -30,4 +30,4 @@ class SearchLinksService {
   }
 }
 
-export { SearchLinksService };
+export { SearchPagesService };

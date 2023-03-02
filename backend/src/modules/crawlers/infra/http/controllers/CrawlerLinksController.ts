@@ -65,9 +65,7 @@ class CrawlerLinksController {
 
     const linkId = request.params.id;
 
-    const data = request.body;
-
-    await releaseCrawlerLinkService.execute({ linkId, data });
+    await releaseCrawlerLinkService.execute({ linkId });
 
     return response.status(200).json({ success: true });
   }

@@ -1,4 +1,6 @@
+import { validateLink } from '@modules/LinkValidation';
 import { IParseResult, parser } from '@modules/Parser';
+import { addPage } from 'api/PagesServices';
 
 import { logger } from '@shared/utils/logger';
 
@@ -11,23 +13,29 @@ class App {
   private async run() {
     const newLinks = await getLink();
 
-    let parseResult: IParseResult;
+    const link = newLinks[0];
+
+    const isValid = await validateLink(link.url);
+
+    if (!isValid) {
+      return;
+    }
 
     if (newLinks.length === 0) {
       // TODO should await some delay and make another request
 
-      return 'no links';
+      return;
     }
     try {
-      const pageData = await fetchPage(newLinks[0].url);
-      parseResult = parser(pageData);
+      const pageData = await fetchPage(link.url);
+      const parseResult = parser(pageData);
+      const { title, description, h1, content } = parseResult;
       await addLinks(parseResult.links);
-      // console.log(result);
-      const { title, description, h1, h2, content } = parseResult;
-      releaseLink(newLinks[0].id, { title, description, h1, h2, content });
+      await addPage({ url: link.url, title, description, h1, content });
+      await releaseLink(link.id);
     } catch (error) {
       logger.error(error);
-      releaseLink(newLinks[0].id);
+      releaseLink(link.id);
     }
     if (this.isRunning) {
       // return;

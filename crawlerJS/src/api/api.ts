@@ -1,13 +1,14 @@
-import axios, { AxiosResponse } from 'axios';
+import axios, { AxiosResponse, CreateAxiosDefaults } from 'axios';
 
 const baseURL = process.env.API_URL || 'http://localhost:3007';
 
 const accessToken =
   'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJyb2xlIjoic3VwZXJfYWRtaW4iLCJpYXQiOjE2Nzc0MTc0NTUsImV4cCI6MTY4MDAwOTQ1NSwic3ViIjoiMmE0NTU3N2MtMWY3MC00MjI0LWIyYmQtMDk2ZTYwNjg5NGI3In0.3zNqeeUUHrWl6-Xr3IkarDgtMiQnHp1pxo0-bXS_aDI; Expires=Mon, 27 Feb 2023 01:17:35 GMT; Max-Age=43200; Path=/; HttpOnly; Domain=localhost';
 
-const defaultOptions = {
+const defaultOptions: CreateAxiosDefaults<any> = {
   baseURL,
   withCredentials: true,
+  timeout: 10000,
 
   headers: {
     'Access-Control-Allow-Origin': '*',

@@ -30,7 +30,7 @@ app.engine('hbs', engine({ extname: '.hbs' }));
 app.set('view engine', 'hbs');
 app.set(
   'views',
-  path.join(__dirname, '..', '..', '..', 'modules', 'search', 'views'),
+  path.join(__dirname, '..', '..', '..', 'modules', 'pages', 'views'),
 );
 
 app.use('/public', express.static(`${__dirname}/public`));
