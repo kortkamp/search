@@ -1,10 +1,16 @@
 import { validateLink } from '@modules/LinkValidation';
 import { IParseResult, parser } from '@modules/Parser';
+import {
+  registerCrawler,
+  unregisterCrawler,
+  addLinks,
+  getLink,
+  releaseLink,
+} from 'api/CrawlersServices';
 import { addPage } from 'api/PagesServices';
 
 import { logger } from '@shared/utils/logger';
 
-import { addLinks, getLink, releaseLink } from './api/LinkServices';
 import { fetchPage } from './api/WebServices';
 
 class App {
@@ -48,9 +54,10 @@ class App {
   };
 
   public start = async () => {
-    logger.info('crawler 666 started');
+    await registerCrawler();
     this.isRunning = true;
-    return this.run();
+    await this.run();
+    await unregisterCrawler();
   };
 }
 

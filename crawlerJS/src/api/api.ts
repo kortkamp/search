@@ -1,9 +1,8 @@
-import axios, { AxiosResponse, CreateAxiosDefaults } from 'axios';
+import axios, { CreateAxiosDefaults } from 'axios';
 
 const baseURL = process.env.API_URL || 'http://localhost:3007';
 
-const accessToken =
-  'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJyb2xlIjoic3VwZXJfYWRtaW4iLCJpYXQiOjE2Nzc0MTc0NTUsImV4cCI6MTY4MDAwOTQ1NSwic3ViIjoiMmE0NTU3N2MtMWY3MC00MjI0LWIyYmQtMDk2ZTYwNjg5NGI3In0.3zNqeeUUHrWl6-Xr3IkarDgtMiQnHp1pxo0-bXS_aDI; Expires=Mon, 27 Feb 2023 01:17:35 GMT; Max-Age=43200; Path=/; HttpOnly; Domain=localhost';
+let accessToken = '';
 
 const defaultOptions: CreateAxiosDefaults<any> = {
   baseURL,
@@ -15,14 +14,24 @@ const defaultOptions: CreateAxiosDefaults<any> = {
     'Content-Type': 'application/json',
     'Access-Control-Allow-Headers':
       'Origin, X-Requested-With, Content-Type, Accept',
-    Cookie: `access_token=${accessToken}`,
   },
 };
 
 const instance = axios.create(defaultOptions);
 
+export const setAccessToken = (token: string) => {
+  accessToken = token;
+};
+
 const api = () => {
   instance.interceptors.response.use(function (config) {
+    return config;
+  });
+
+  instance.interceptors.request.use(config => {
+    // eslint-disable-next-line no-param-reassign
+    config.headers.Authorization = `Bearer ${accessToken}`;
+
     return config;
   });
 

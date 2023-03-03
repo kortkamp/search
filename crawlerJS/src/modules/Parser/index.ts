@@ -21,7 +21,8 @@ const parser = (raw: string): IParseResult => {
     .filter(
       link =>
         !(
-          link.endsWith('.pdf') ||
+          link.endsWith('.jpg') ||
+          link.endsWith('.zip') ||
           link.endsWith('.jpg') ||
           link.endsWith('.png')
         ),

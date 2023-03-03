@@ -1,4 +1,4 @@
-import { crawlerLinksRoutes } from '@modules/crawlers/infra/http/routes/crawlerLinks.routes';
+import { crawlersRoutes } from '@modules/crawlers/infra/http/routes/crawlers.routes';
 import { pagesRoutes } from '@modules/pages/infra/http/routes/pages.routes';
 import { searchRoutes } from '@modules/pages/infra/http/routes/search.routes';
 import { sessionsRoutes } from '@modules/sessions/infra/http/routes/sessions.routes';
@@ -14,6 +14,7 @@ routes.use('/pages', pagesRoutes);
 routes.use('/users', userTokensRoutes);
 routes.use('/users', usersRoutes);
 routes.use('/sessions', sessionsRoutes);
-routes.use('/crawler-links', crawlerLinksRoutes);
+
+routes.use('/crawlers', crawlersRoutes);
 
 export { routes };

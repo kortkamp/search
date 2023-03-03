@@ -10,11 +10,10 @@
     "build": "yarn babel src --extensions \".js,.ts\" --out-dir dist/src --copy-files --no-copy-ignored",
     "test": "jest",
     "seed:admin": "MIGRATION=TRUE ts-node-dev -r tsconfig-paths/register ./src/shared/infra/typeorm/seed/admin.ts",
+    "seed:crawlers": "MIGRATION=TRUE ts-node-dev -r tsconfig-paths/register ./src/shared/infra/typeorm/seed/crawlers.ts",
     "seed:admin.prod": "node ./dist/src/shared/infra/typeorm/seed/admin.js",
     "fix:data": "MIGRATION=TRUE ts-node-dev -r tsconfig-paths/register ./src/shared/infra/typeorm/seed/fixDomain.ts",
-    "ix:data.prod": "node ./dist/src/shared/infra/typeorm/seed/fixDomain.js",
-    "fix:catSlug": "MIGRATION=TRUE ts-node-dev -r tsconfig-paths/register ./src/shared/infra/typeorm/seed/addCatSlugs.ts",
-    "fix:catSlug.prod": "node ./dist/src/shared/infra/typeorm/seed/addCatSlugs.js",
+    
     "docs:build": "ts-node-dev -r tsconfig-paths/register ./src/docs/build.ts",
     "cp-module": "./src/bin/cp-module",
     "migration:create": "./node_modules/typeorm/cli.js migration:create"
